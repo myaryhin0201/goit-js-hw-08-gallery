@@ -3,18 +3,24 @@ const gallery = document.querySelector('ul.js-gallery');
 const lightbox = document.querySelector('lightbox');
 
 const createImage = (image) => {
-    let listGallery = `<li class="gallery__item"><img class="gallery__image" 
-    src="${image.preview}" alt="${image.description}"/></li>`;
-    return listGallery;
+    const listRef = document.createElement('li');
+    const linkRef = document.createElement('a');
+    linkRef.classList.add('gallery__link');
+    linkRef.setAttribute('href', image.original);
+    const picture = document.createElement('img');
+    picture.classList.add('gallery__image');
+    picture.setAttribute('src', image.preview);
+    picture.setAttribute('alt', image.description);
+    picture.setAttribute('data-source', image.original);
+    linkRef.appendChild(picture);
+    listRef.appendChild(linkRef);
+    return listRef;
 }
-const items = images.map((image) => createImage(image)).join("");
-gallery.insertAdjacentHTML('beforeend', items);
-// console.log(gallery);
-const openModal = () => {
-    console.log(lightbox);
-    lightbox.classList.add('is-open');
-//    return lightbox.classList.add("is-open");
-}
-gallery.addEventListener('click', openModal());
+const items = images.map(image => createImage(image));
+gallery.append(...items);
+console.log(gallery);
+
+
+// gallery.addEventListener('click', openModal());
 
 
