@@ -4,7 +4,6 @@ const lightbox = document.querySelector('div.lightbox');
 const lightImage = document.querySelector('.lightbox__image');
 const btnClose = document.querySelector('button[data-action="close-lightbox"]');
 const lightOverlay = document.querySelector('.lightbox__overlay');
-
 let i = 0;
 let activeIndex = 0;
 const createImage = (image) => {
@@ -23,18 +22,19 @@ const createImage = (image) => {
     i += 1;
     return listRef;
 }
-const items = images.map(image => createImage(image));
-gallery.append(...items);
-
+const galleryItems = images.map(image => createImage(image));
+gallery.append(...galleryItems);
 const onArrowRight = (event) => {
     if (event.key === 'ArrowRight') {
-        activeIndex += 1;
+       activeIndex = activeIndex === images.length - 1 ? 0 : activeIndex + 1;
+        lightImage.src = images[activeIndex].original;
         console.log(activeIndex);
     }
 }
 const onArrowLeft = (event) => {
     if (event.key === 'ArrowLeft') {
-        activeIndex -= 1;
+        activeIndex = activeIndex === 0 ? images.length - 1 : activeIndex - 1;
+        lightImage.src = images[activeIndex].original;
         console.log(activeIndex);
     }
 }
@@ -75,7 +75,6 @@ const closeModal = () => {
     lightOverlay.removeEventListener('click', closeModal);
 }
 gallery.addEventListener('click', openModal);
-
 
 
 
