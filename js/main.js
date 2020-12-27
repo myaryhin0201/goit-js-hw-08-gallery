@@ -22,9 +22,6 @@ const createImage = (image) => {
     i += 1;
     return listRef;
 }
-const galleryItems = images.map(image => createImage(image));
-gallery.append(...galleryItems);
-gallery.addEventListener('click', openModal);
 const onArrowRight = (event) => {
     if (event.key === 'ArrowRight') {
        activeIndex = activeIndex === images.length - 1 ? 0 : activeIndex + 1;
@@ -75,7 +72,9 @@ const closeModal = () => {
     btnClose.removeEventListener('click', closeModal);
     lightOverlay.removeEventListener('click', closeModal);
 }
-
+const galleryItems = images.map(image => createImage(image));
+gallery.append(...galleryItems);
+gallery.addEventListener('click', openModal);
 
 
 
